@@ -100,48 +100,86 @@
       <div class="check-search px-1">
         <div class="row ">
           <!--CHECKBOX-->
-          <div class="col-6 col-sm-6 col-md-6 check text-light">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+
+
+          <div class="col-5 col-sm-6 col-md-8 col-lg-10 check text-light" id="checkContainer">
+            
+            <div class="form-check" id="formCheck">
+              <input class="form-check-input checkboxs" name="category" type="checkbox" value="" id="flexCheckDefault1" >
               <label class="form-check-label" for="flexCheckDefault1">
+                Book Exchange
+              </label>
+            </div>
+            <div class="form-check" id="formCheck">
+              <input class="form-check-input checkboxs" name="category" type="checkbox" value="" id="flexCheckChecked2">
+              <label class="form-check-label" for="flexCheckChecked2">
                 Cinema
               </label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2">
-              <label class="form-check-label" for="flexCheckChecked2">
-                Party
-              </label>
-            </div>
 
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+            <div class="form-check" id="formCheck">
+              <input class="form-check-input checkboxs" name="category" type="checkbox" value="" id="flexCheckDefault3">
               <label class="form-check-label" for="flexCheckDefault3">
-                Food
+                Costume Party
               </label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4">
-              <label class="form-check-label" for="flexCheckChecked4">
-                Marathon
+            <div class="form-check" id="formCheck">
+              <input class="form-check-input checkboxs" name="category" type="checkbox" value="" id="flexCheckChecked4">
+              <label class="form-check-label" for="flexCheckChecked4"> 
+                Food Fair
               </label>
             </div>
 
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
-              <label class="form-check-label" for="flexCheckDefault5">
-                Tour
+            <div class="form-check" id="formCheck">
+              <input class="form-check-input checkboxs" name="category" type="checkbox" value="" id="flexCheckDefault5">
+              <label class="form-check-label" for="flexCheckDefault5">              
+                Museum
               </label>
             </div>
+
+            <div class="form-check" id="formCheck">
+              <input class="form-check-input checkboxs" name="category" type="checkbox" value="" id="flexCheckChecked6">
+              <label class="form-check-label" for="flexCheckChecked6">
+                Music Concert
+              </label>
+            </div>
+
+            <div class="form-check" id="formCheck">
+              <input class="form-check-input checkboxs" name="category" type="checkbox" value="" id="flexCheckChecked7">
+              <label class="form-check-label" for="flexCheckChecked7">
+                Race
+              </label>
+            </div>
+
           </div>
+
+
           <!--SEARCH-->
-          <div class="col-6 col-sm-6 col-md-6  search">
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+          <div class="col-7 col-sm-6 col-md-4 col-lg-2 search">
+            <form class="d-flex" role="search" id="formSearch">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="inputSearch">
+              <button class="btn btn-outline-primary btnsearch" type="submit"><i class="bi bi-search"></i></button>
             </form>
 
           </div>
+
+          <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalLabel">Algo no salió bien!</h5>
+                </div>
+                <div class="modal-body">
+                  No se encontró el evento que busca, por favor ingrese otro evento.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary close" data-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
         </div>
       </div>
     </div>
