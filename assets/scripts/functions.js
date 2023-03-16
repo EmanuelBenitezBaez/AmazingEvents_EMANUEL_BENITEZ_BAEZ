@@ -16,7 +16,7 @@ function futureEvents(myData){
     arrayAux = myData.events.filter(myEvent => Date.parse(myEvent.date) > Date.parse(myData.currentDate));
     return arrayAux;
 };
-
+/*
 //Toma un arreglo de eventos y me lo dibuja en forma de cards dentro de container
 function drawCards(arr, container) {
 
@@ -44,8 +44,8 @@ for (let i = 0; i < arr.length; i++) {
   }
   container.appendChild(fragment);
   }
-
+*/
 
   
 
-export {pastEvents, futureEvents, drawCards};
+export {pastEvents, futureEvents};

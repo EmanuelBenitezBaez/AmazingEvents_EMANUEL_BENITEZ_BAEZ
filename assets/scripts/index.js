@@ -1,9 +1,5 @@
 import data from "./amazing.js";
 
-
-
-
-
 //FILTROS
 
 const container = document.getElementById('indexCards')

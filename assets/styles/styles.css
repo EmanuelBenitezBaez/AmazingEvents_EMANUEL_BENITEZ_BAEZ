@@ -194,3 +194,8 @@ th {
     transform: scale(1.1);
     box-shadow: 2px 4px 10px black;
 }
+/***GO BACK***/
+
+.btn-details{
+    background-color: white;
+}
