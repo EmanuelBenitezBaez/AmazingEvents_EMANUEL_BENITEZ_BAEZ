@@ -1,21 +1,23 @@
 
 import data from "./amazing.js"
 
-
-console.log(drawDetails);
 const queryString = location.search;
 const params = new URLSearchParams(queryString);
 const eventsId = params.get('id'); 
-const events = data.events.find(event => event._id == eventsId);
+const event = data.events.find(event => event._id == eventsId);
 
-let detailsContainer = document.getElementById('detailsContainer');
+let detailsContainers = document.getElementById('detailsContainer');
 
 //DETAILS
 
+///
+
+
+////
   function drawDetails(events, container) {
       let div = document.createElement('div');
-      div.className = 'cardDetails';
-      div.innerHTML = `
+      div.className = 'detailsContainers';
+      div.innerHTML= `
                   <div class="row g-2">
                   <div class="col-12 col-md-6 ">
                     <img class="img-fluid h-100 " src="${events.image}" alt="${events.name}">
@@ -41,6 +43,7 @@ let detailsContainer = document.getElementById('detailsContainer');
                   </div>
                   </div>
                   `
-                  return container.appendChild(div);
+                  
+                   container.appendChild(div);
   }
-  drawDetails(data.events,detailsContainer)
+  drawDetails(data,detailsContainers)

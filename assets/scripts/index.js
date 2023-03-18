@@ -1,21 +1,20 @@
 import data from "./amazing.js";
 
-//FILTROS
-
+//ELEMENTOS
 const container = document.getElementById('indexCards')
 const containerCheck = document.getElementById('checkContainer')
 const input = document.getElementById('inputSearch')
 
+//LLAMADA A LAS FUNCIONES
 drawEvents(data.events)
-
 createChecks(data.events)
 
 //LISTENERS
 
 input.addEventListener('input', mixFilters)
-
 containerCheck.addEventListener('change', mixFilters)
 
+//MIXEA LOS FILTROS
 function mixFilters() {
   let firstFilter = filterByText(data.events, input.value)
   let secondFilter = filterByCheck(firstFilter)
@@ -42,20 +41,16 @@ function filterByCheck(array) {
 }
 
 //FILTRAR POR TEXTO
-
 function filterByText(array, text) {
   let arrayFiltered = array.filter(element => element.name.toLowerCase().includes(text.toLowerCase()))
   return arrayFiltered
 }
 
 //CREA LOS CHECKS
-
 function createChecks(array) {
   let arrayEvents = array.map(event => event.category)
-  //console.log(arrayEvents);
-
   //let setEvent= new set(arrayEvents)
-  /*se utiliza el método filter() para crear un nuevo array que solo contenga los elementos cuyo índice en "arrayEvents" es igual a su índice en el array filtrado  */
+  //se utiliza el método filter() para crear un nuevo array que solo contenga los elementos cuyo índice en "arrayEvents" es igual a su índice en el array filtrado  
   let uniqueEvents = arrayEvents.filter((event, index) => {
     return arrayEvents.indexOf(event) === index;
 
@@ -74,8 +69,7 @@ function createChecks(array) {
   containerCheck.innerHTML = checkboxes;
 }
 
-//RENDERIZA LAS CARDS
-
+//DIBUJA CARDS
 function drawEvents(array) {
 
   if (array.length == 0) {
@@ -95,7 +89,7 @@ function drawEvents(array) {
           </div>
           <div class="card-body d-flex justify-content-between align-items-center">
             <span class="">Price: <span>$</span> ${events.price}</span>
-            <a href="../pages/details.html?=id${events._id} " class="card-link">Read More</a>
+            <a href="../pages/details.html?=id${events._id}" class="card-link">Read More</a>
           </div>
         </div>
       </div>
@@ -103,6 +97,5 @@ function drawEvents(array) {
   }
   container.innerHTML = cards;
 }
-
 
 

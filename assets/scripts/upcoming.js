@@ -1,49 +1,47 @@
 import data from "./amazing.js"; 
 
-import  {futureEvents,} from "./functions.js";
+import  {futureEvents} from "./functions.js";
 
-
-
-//FILTROS
+//OBTENGO LOS ELEMENTOS
 
 const container = document.getElementById('upcomingCards')
 const containerCheck = document.getElementById('checkContainer')
 const input = document.getElementById('inputSearch')
 
-
-drawEvents(futureEvents(data), container);
+//LLAMADA A LAS FUNCIONES
+const futureEventsArray = futureEvents(data);
+drawEvents(futureEventsArray);
 createChecks(data.events)
 
 //LISTENERS
-
 input.addEventListener('input', mixFilters)
-
 containerCheck.addEventListener('change', mixFilters)
 
+//MIXEA LOS FILTROS
 function mixFilters() {
   let firstFilter = filterByText(data.events, input.value)
-  let secondFilter = filterByCheck(firstFilter)
+  let secondFilter = filterByCheck(firstFilter, data.currentDate)
   drawEvents(secondFilter)
 }
-
-//FILTRO CHECKS
-function filterByCheck(array) {
+//FILTRA POR CHECKS
+function filterByCheck(array, currentDate) {
   let checkboxes = document.querySelectorAll("input[type='checkbox']")
 
-  //Convierte a array para manipularlo
   let arrayChecks = Array.from(checkboxes)
-  //Devuelve un array con estado checked y es guardado en arraychecked
   let arrayChecksChecked = arrayChecks.filter(check => check.checked)
-
   let arrayChecksCheckedValues = arrayChecksChecked.map(checkChecked => checkChecked.value)
 
-  let filteredArray = array.filter(element => arrayChecksCheckedValues.includes(element.category))
+  let filteredArray = array.filter(element => {
+    if (arrayChecksChecked.length > 0) {
+      return arrayChecksCheckedValues.includes(element.category) && Date.parse(element.date) > Date.parse(currentDate);
+    } else {
+      return Date.parse(element.date) > Date.parse(currentDate);
+    }
+  });
 
-  if (arrayChecksChecked.length > 0) {
-    return filteredArray
-  }
-  return array
+  return filteredArray;
 }
+
 
 //FILTRAR POR TEXTO
 
@@ -59,7 +57,7 @@ function createChecks(array) {
   //console.log(arrayEvents);
 
   //let setEvent= new set(arrayEvents)
-  /*se utiliza el método filter() para crear un nuevo array que solo contenga los elementos cuyo índice en "arrayEvents" es igual a su índice en el array filtrado  */
+  //se utiliza el método filter() para crear un nuevo array que solo contenga los elementos cuyo índice en "arrayEvents" es igual a su índice en el array filtrado  
   let uniqueEvents = arrayEvents.filter((event, index) => {
     return arrayEvents.indexOf(event) === index;
 
@@ -99,7 +97,7 @@ function drawEvents(array) {
           </div>
           <div class="card-body d-flex justify-content-between align-items-center">
             <span class="">Price: <span>$</span> ${events.price}</span>
-            <a href="./pages/details.html${events._id} " class="card-link">Read More</a>
+            <a href="../pages/details.html?=id${events._id}" class="card-link">Read More</a>
           </div>
         </div>
       </div>
