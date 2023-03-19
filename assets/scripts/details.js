@@ -3,10 +3,10 @@ import data from "./amazing.js"
 
 const queryString = location.search;
 const params = new URLSearchParams(queryString);
-const eventsId = params.get('id'); 
+const eventsId = params.get("_id"); 
 const event = data.events.find(event => event._id == eventsId);
 
-let detailsContainers = document.getElementById('detailsContainer');
+let detailsContainers = document.querySelector('#detailsContainer');
 
 //DETAILS
 
