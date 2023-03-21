@@ -199,3 +199,9 @@ th {
 .btn-details{
     background-color: white;
 }
+
+/**DETAILS CONTAINERS**/
+#detailsContainer img{
+
+   object-fit: cover;
+}
