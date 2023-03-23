@@ -1,4 +1,3 @@
-import data from "./amazing.js"
 
 
 // Esta funcion retorna  en un arreglo
@@ -48,3 +47,5 @@ for (let i = 0; i < arr.length; i++) {
 */
 
 export {pastEvents, futureEvents};
+
+
