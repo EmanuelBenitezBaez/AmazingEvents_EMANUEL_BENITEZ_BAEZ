@@ -4,6 +4,8 @@ const detailsContainer = document.querySelector("#detailsContainer");
 
 //Obtengo los eventos del json.
 
+
+
 async function getEvents(){
   await fetch('../data/amazing.json')
         .then(response=>response.json())

@@ -21,37 +21,68 @@ drawPastRevenues(eventList)
 
 drawPastAttendancesPercentage( eventList)
 
+
 }).catch(error=>console.error(error));
 
 }
 //Llamo a la funcion que obtiene el json.
 getEvents()
 
+// Esta función recorre un conjunto de datos de eventos y devuelve el evento con la mayor capacidad.
+
+function getLargerCapacityEvent(event){
+  let largerCapacityEvent = null;
+  let largerCapacity = 0;
+
+  for (let key in event) {
+    let capacity = event[key].assistance ? event[key].assistance : event[key].estimate;
+    if (capacity > largerCapacity) {
+      largerCapacity = capacity;
+      largerCapacityEvent = event[key];
+    }
+  }
+
+  return largerCapacityEvent;
+}
+
 // Esta función recorre un conjunto de datos de eventos y devuelve el evento con la mayor asistencia en comparación con su capacidad.
-function getHighestAttendanceEvent(events) {
-  // Utiliza la función reduce para comparar cada evento en el conjunto de datos y devolver el evento con la mayor asistencia en comparación con su capacidad.
-  return events.reduce((highestAttendanceEvent, currentEvent) => {
-    return (currentEvent.assistance / currentEvent.capacity > highestAttendanceEvent.assistance / highestAttendanceEvent.capacity) ? currentEvent : highestAttendanceEvent;
-  }, events[0]);
+
+function getHighestAttendanceEvent(event){
+  let highestAttendanceEvent = null;
+  let highestAttendancePercent = 0;
+
+  for (let key in event) {
+    let attendance = event[key].assistance ? event[key].assistance : event[key].estimate;
+    let capacity = event[key].capacity;
+    let attendancePercent = attendance / capacity * 100;
+    if (attendancePercent > highestAttendancePercent) {
+      highestAttendancePercent = attendancePercent;
+      highestAttendanceEvent = event[key];
+    }
+  }
+
+  return highestAttendanceEvent;
 }
 
 // Esta función recorre un conjunto de datos de eventos y devuelve el evento con la menor asistencia en comparación con su capacidad.
-function getLowestAttendanceEvent(events) {
-    // Utiliza la función reduce para comparar cada evento en el conjunto de datos y devolver el evento con la menor asistencia en comparación con su capacidad.
-  return events.reduce((lowestAttendanceEvent, currentEvent) => {
-    return (currentEvent.assistance / currentEvent.capacity < lowestAttendanceEvent.assistance / lowestAttendanceEvent.capacity) ? currentEvent : lowestAttendanceEvent;
-  }, events[0]);
+function getLowestAttendanceEvent(event){
+  let lowestAttendanceEvent = null;
+  let lowestAttendancePercent = 100;
+
+  for (let key in event) {
+    let attendance = event[key].assistance ? event[key].assistance : event[key].estimate;
+    let capacity = event[key].capacity;
+    let attendancePercent = attendance / capacity * 100;
+    if (attendancePercent < lowestAttendancePercent) {
+      lowestAttendancePercent = attendancePercent;
+      lowestAttendanceEvent = event[key];
+    }
+  }
+
+  return lowestAttendanceEvent;
 }
 
-// Esta función recorre un conjunto de datos de eventos y devuelve el evento con la mayor capacidad.
-function getHighestCapacityEvent(events) {
-  // Utiliza la función reduce para comparar cada evento en el conjunto de datos y devolver el evento con la mayor capacidad.
-  return events.reduce((highestCapacityEvent, currentEvent) => {
-    return (currentEvent.capacity > highestCapacityEvent.capacity) ? currentEvent : highestCapacityEvent;
-  }, events[0]);
-}
-
-//FUNCION QUE MUESTRA EN LA TABLA LOS RESULTADOS DE LA PRIMER TABLA..
+//funcion que dibuja la primer tabla de eventos.
 function drawEventsStatistics(events) {
   const highestAttendanceEvent = getHighestAttendanceEvent(events);
   document.getElementById("highestAttendance").textContent = highestAttendanceEvent.name;
@@ -59,11 +90,11 @@ function drawEventsStatistics(events) {
   const lowestAttendanceEvent = getLowestAttendanceEvent(events);
   document.getElementById("lowestAttendance").textContent = lowestAttendanceEvent.name;
 
-  const highestCapacityEvent = getHighestCapacityEvent(events);
+  const highestCapacityEvent = getLargerCapacityEvent(events);
   document.getElementById("highestCapacity").textContent = highestCapacityEvent.name;
 }
 
-//FUNCION QUE OBTIENE LAS CATEGORIAS FUTURAS
+//funcion que obtiene las categorias futuras.
 function getUpcomingCategories(events) {
   const currentDate = new Date();
   const categories = [];
@@ -78,7 +109,7 @@ function getUpcomingCategories(events) {
   return categories;
 }
 
-//FUNCION QUE OBTIENE LOS REVENUES FUTUROS
+//funcion que obtiene los revenues futuros.
 function getUpcomingCategoriesRevenues(arr) {
   const currentDate = new Date();
   const upcomingCategories = arr.filter(item => new Date(item.date) > currentDate)
@@ -89,7 +120,7 @@ function getUpcomingCategoriesRevenues(arr) {
   return upcomingCategories;
 }
 
-//FUNCION QUE OBTIENE LOS PORCENTAJES DE ASISTENCIA FUTURAS
+//funcion que obtiene los porcentajes de asistencias futuras.
 function getUpcomingPercentageAttendance(events) {
   const currentDate = new Date();
   const categoryAttendance = events.filter(event => new Date(event.date) > currentDate)
@@ -109,7 +140,7 @@ function getUpcomingPercentageAttendance(events) {
   return categoryAttendance;
 }
 
-//FUNCION QUE OBTIENE LAS CATEGORIAS 
+//funcion que obtiene las categorias.
 function getPastCategories(events) {
   const currentDate = new Date();
   const categories = [];
@@ -123,7 +154,8 @@ function getPastCategories(events) {
 
   return categories;
 }
-//FUNCION QUE OBTIENE LOS REVENUES PASADOS POR CATEGORIA
+
+//funcion que obtiene los revenues pasados por categoria.
 function getPastRevenuesByCategories(events) {
   const revenueByCategory = {};
   events.forEach(event => {
@@ -138,7 +170,7 @@ function getPastRevenuesByCategories(events) {
   return revenueByCategory;
   }
 
-//FUNCION QUE OBTIENE LOS PORCENTAJES DE ASISTENCIA PASADOS
+//funcion que obtiene los porcentajes de asistencias pasadas.
   function getPastPercentageAttendance(events) {
     let categoryAttendance = {};
     events.forEach(event => {
@@ -240,8 +272,7 @@ function drawPastRevenues(events){
 
 //obtenemos el contenedor del html
 const pastAttendanceContainer=document.querySelector('.pastStatisticsAttendance')
-// Esta función toma un conjunto de datos de eventos y muestra el porcentaje de asistencia de cada evento pasado en un contenedor
-// en el html.
+// Esta función toma un conjunto de datos de eventos y muestra el porcentaje de asistencia de cada evento pasado en un contenedor en el html.
 function drawPastAttendancesPercentage(events){
   // Obtiene los porcentajes de asistencia de los eventos pasados utilizando la función getPastPercentageAttendance.
   const resultado = getPastPercentageAttendance(events);
